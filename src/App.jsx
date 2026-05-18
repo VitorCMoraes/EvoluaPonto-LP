@@ -18,6 +18,7 @@ function GlobalStyles() {
         color: #0F172A;
         background: #FFFFFF;
         -webkit-font-smoothing: antialiased;
+        overflow-x: hidden;
       }
 
       /* ── Scroll reveal ── */
@@ -138,15 +139,24 @@ function GlobalStyles() {
         .navbar { padding: 0 20px; }
         .nav-label { display: none; }
         .sec { padding: 60px 24px !important; }
+        .hero-sec { padding: 100px 24px 64px !important; }
+        .hero-inner { gap: 40px !important; }
         .feat-row  { flex-direction: column !important; }
         .feat-row-rev { flex-direction: column !important; }
         .frame-3d { transform: none !important; width: 100% !important; flex: none !important; }
-        .hero-text { flex: none !important; }
+        .hero-text { flex: none !important; width: 100% !important; }
         .grid-3 { grid-template-columns: 1fr !important; }
         .grid-4 { grid-template-columns: 1fr 1fr !important; }
+        .feat-mockup { overflow: hidden; }
+        footer { padding: 36px 24px !important; }
+        .wa-btn { white-space: normal; }
+        .wa-btn.large { display: flex; width: 100%; justify-content: center; box-sizing: border-box; }
+        .wa-btn.small { display: flex; width: 100%; justify-content: center; box-sizing: border-box; }
       }
       @media (max-width: 480px) {
+        .hero-sec { padding: 88px 20px 52px !important; }
         .grid-4 { grid-template-columns: 1fr !important; }
+        .feat-mockup { display: none !important; }
       }
     `}</style>
   )
@@ -422,14 +432,14 @@ function Navbar() {
 // ─── Section 1: Hero ─────────────────────────────────────────────────────────
 function HeroSection() {
   return (
-    <section style={{
+    <section className="hero-sec" style={{
       background: 'linear-gradient(145deg, #0088CE 0%, #004f7c 55%, #003356 100%)',
       padding: '140px 64px 96px',
       minHeight: '100vh',
       display: 'flex',
       alignItems: 'center',
     }}>
-      <div style={{
+      <div className="hero-inner" style={{
         maxWidth: 1200,
         margin: '0 auto',
         width: '100%',
@@ -670,7 +680,7 @@ function FeaturePunchSection() {
           </div>
 
           {/* Mockup */}
-          <div style={{ flex: '1 1 480px' }}>
+          <div className="feat-mockup" style={{ flex: '1 1 480px' }}>
             <BrowserFrame url="app.evoluaponto.com.br/ponto" height={388}>
               <div style={{ display: 'flex', height: '100%' }}>
                 <SideBar activeItem="Bater ponto" />
@@ -867,7 +877,7 @@ function FeatureMirrorSection() {
           </div>
 
           {/* Mockup */}
-          <div style={{ flex: '1 1 480px' }}>
+          <div className="feat-mockup" style={{ flex: '1 1 480px' }}>
             <BrowserFrame url="app.evoluaponto.com.br" height={388}>
               <div style={{ display: 'flex', height: '100%' }}>
                 <SideBar activeItem="Início" />
@@ -1012,7 +1022,7 @@ function FeatureManagementSection() {
           </div>
 
           {/* Mockup */}
-          <div style={{ flex: '1 1 480px' }}>
+          <div className="feat-mockup" style={{ flex: '1 1 480px' }}>
             <BrowserFrame url="app.evoluaponto.com.br/gestao" height={388}>
               <div style={{ display: 'flex', height: '100%' }}>
                 <SideBar activeItem="Estabelecimentos" showGestao />
