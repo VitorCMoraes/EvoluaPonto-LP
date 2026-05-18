@@ -1,7 +1,10 @@
 import { useState, useEffect, useRef } from 'react'
+import Lottie from 'lottie-react'
 
 const WA_LINK =
   'https://wa.me/5562999148580?text=Ol%C3%A1!%20Tenho%20interesse%20em%20conhecer%20o%20Evolua%20Ponto.%20Pode%20me%20ajudar%3F'
+
+const SYSTEM_LINK = '#' // TODO: substituir pelo link do sistema
 
 // ─── Global styles injected via <style> ─────────────────────────────────────
 function GlobalStyles() {
@@ -86,6 +89,27 @@ function GlobalStyles() {
         font-size: 14px;
       }
 
+      /* ── System Access button ── */
+      .sys-btn {
+        color: #fff;
+        border: 1.5px solid rgba(255,255,255,0.55);
+        background: transparent;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-weight: 600;
+        border-radius: 8px;
+        text-decoration: none;
+        padding: 9px 16px;
+        font-size: 13px;
+        transition: all 0.2s ease;
+      }
+      .sys-btn:hover { background: rgba(255,255,255,0.12); transform: translateY(-1px); }
+      .navbar.scrolled .sys-btn { color: #0088CE; border-color: #0088CE; }
+      .navbar.scrolled .sys-btn:hover { background: #E6F4FC; }
+
       /* ── Navbar CTA ── */
       .nav-cta {
         background: #0088CE;
@@ -149,6 +173,7 @@ function GlobalStyles() {
         .grid-4 { grid-template-columns: 1fr 1fr !important; }
         .feat-mockup { overflow: hidden; }
         footer { padding: 36px 24px !important; }
+        .navbar .sys-btn { display: none; }
         .wa-btn { white-space: normal; }
         .wa-btn.large { display: flex; width: 100%; justify-content: center; box-sizing: border-box; }
         .wa-btn.small { display: flex; width: 100%; justify-content: center; box-sizing: border-box; }
@@ -156,7 +181,6 @@ function GlobalStyles() {
       @media (max-width: 480px) {
         .hero-sec { padding: 88px 20px 52px !important; }
         .grid-4 { grid-template-columns: 1fr !important; }
-        .feat-mockup { display: none !important; }
       }
     `}</style>
   )
@@ -178,6 +202,16 @@ function ClockIcon({ size = 24, color = '#0088CE' }) {
       <polyline points="12 6 12 12 16 14" />
     </svg>
   )
+}
+
+// ─── Lottie: login animation ─────────────────────────────────────────────────
+function LoginLottie() {
+  const [data, setData] = useState(null)
+  useEffect(() => {
+    fetch('/LoginAnimation.json').then(r => r.json()).then(setData).catch(() => {})
+  }, [])
+  if (!data) return null
+  return <Lottie animationData={data} loop autoplay style={{ width: '100%', height: 'auto' }} />
 }
 
 // ─── Hook: scroll reveal ─────────────────────────────────────────────────────
@@ -436,10 +470,16 @@ function Navbar() {
           Evolua Ponto
         </span>
       </div>
-      <a href={WA_LINK} target="_blank" rel="noopener noreferrer" className="nav-cta btn-hover">
-        <WhatsAppIcon size={15} />
-        <span className="nav-label">Falar com especialista</span>
-      </a>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+        <a href={SYSTEM_LINK} className="sys-btn btn-hover">
+          <span className="nav-label">Acessar sistema</span>
+          <span>↗</span>
+        </a>
+        <a href={WA_LINK} target="_blank" rel="noopener noreferrer" className="nav-cta btn-hover">
+          <WhatsAppIcon size={15} />
+          <span className="nav-label">Falar com especialista</span>
+        </a>
+      </div>
     </nav>
   )
 }
@@ -509,7 +549,12 @@ function HeroSection() {
             Quero uma demonstração gratuita
           </a>
 
-          <div style={{ display: 'flex', gap: 20, marginTop: 22, flexWrap: 'wrap' }}>
+          <a href={SYSTEM_LINK} className="sys-btn btn-hover" style={{ marginTop: 14, alignSelf: 'flex-start' }}>
+            Acessar sistema
+            <span>↗</span>
+          </a>
+
+          <div style={{ display: 'flex', gap: 20, marginTop: 8, flexWrap: 'wrap' }}>
             {['GPS em tempo real', 'Sem hardware extra', 'Web + Mobile'].map(b => (
               <span key={b} style={{ fontSize: 13, color: 'rgba(255,255,255,0.70)', display: 'flex', alignItems: 'center', gap: 4 }}>
                 <span style={{ color: '#4ADE80', fontWeight: 700 }}>✓</span> {b}
@@ -541,15 +586,12 @@ function HeroSection() {
                   Gestão de jornada inteligente e descomplicada.
                 </p>
                 <div style={{
-                  background: 'rgba(255,255,255,0.15)',
-                  borderRadius: 12,
-                  padding: '16px 20px',
-                  backdropFilter: 'blur(4px)',
+                  background: '#fff',
+                  borderRadius: 14,
+                  overflow: 'hidden',
+                  width: '88%',
                 }}>
-                  <div style={{ fontSize: 32 }}>👤📍</div>
-                  <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.7)', marginTop: 8 }}>
-                    Registro com localização
-                  </div>
+                  <LoginLottie />
                 </div>
               </div>
 
