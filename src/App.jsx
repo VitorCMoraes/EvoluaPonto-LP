@@ -250,13 +250,18 @@ function BrowserFrame({ children, url = 'app.evoluaponto.com.br', height = 380 }
 
 // ─── Reusable: SideBar ───────────────────────────────────────────────────────
 function SideBar({ activeItem = 'Início', showGestao = false }) {
-  const mainItems = ['Início', 'Bater ponto', 'Solicitar Ajuste', 'Comprovantes']
+  const mainItems = [
+    { label: 'Início',           icon: '⌂' },
+    { label: 'Bater ponto',      icon: '⏱' },
+    { label: 'Solicitar Ajuste', icon: '✎' },
+    { label: 'Comprovantes',     icon: '☰' },
+  ]
   const gestaoItems = [
-    { label: 'Estabelecimentos', badge: null },
-    { label: 'Funcionários', badge: null },
-    { label: 'Escalas', badge: null },
-    { label: 'Solicitações', badge: '1' },
-    { label: 'Relatórios', badge: null },
+    { label: 'Estabelecimentos', badge: null, icon: '⊞' },
+    { label: 'Funcionários',     badge: null, icon: '⊕' },
+    { label: 'Escalas',          badge: null, icon: '⊟' },
+    { label: 'Solicitações',     badge: '1',  icon: '◆' },
+    { label: 'Relatórios',       badge: null, icon: '≡' },
   ]
   const w = showGestao ? 190 : 178
 
@@ -279,10 +284,10 @@ function SideBar({ activeItem = 'Início', showGestao = false }) {
 
       {/* Nav items */}
       <div style={{ flex: 1, paddingTop: 6, overflowY: 'auto' }}>
-        {mainItems.map(item => {
-          const active = activeItem === item
+        {mainItems.map(({ label, icon }) => {
+          const active = activeItem === label
           return (
-            <div key={item} style={{
+            <div key={label} style={{
               padding: '8px 14px',
               color: '#fff',
               fontWeight: active ? 700 : 400,
@@ -291,8 +296,12 @@ function SideBar({ activeItem = 'Início', showGestao = false }) {
               borderRadius: active ? '0 8px 8px 0' : 0,
               marginRight: active ? 8 : 0,
               cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 6,
             }}>
-              {item}
+              <span style={{ fontSize: 10, opacity: 0.85 }}>{icon}</span>
+              {label}
             </div>
           )
         })}
@@ -311,14 +320,14 @@ function SideBar({ activeItem = 'Início', showGestao = false }) {
               cursor: 'pointer',
               marginTop: 4,
             }}>
-              <span>Gestão</span>
+              <span>⚙ Gestão</span>
               <span style={{ fontSize: 9 }}>▲</span>
             </div>
             {gestaoItems.map(g => {
               const active = activeItem === g.label
               return (
                 <div key={g.label} style={{
-                  padding: '7px 14px 7px 24px',
+                  padding: '7px 14px 7px 20px',
                   color: '#fff',
                   fontWeight: active ? 700 : 400,
                   fontSize: 10,
@@ -330,7 +339,10 @@ function SideBar({ activeItem = 'Início', showGestao = false }) {
                   alignItems: 'center',
                   cursor: 'pointer',
                 }}>
-                  <span>{g.label}</span>
+                  <span style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
+                    <span style={{ fontSize: 9, opacity: 0.8 }}>{g.icon}</span>
+                    {g.label}
+                  </span>
                   {g.badge && (
                     <span style={{
                       background: '#EF4444',
@@ -359,10 +371,13 @@ function SideBar({ activeItem = 'Início', showGestao = false }) {
           borderRadius: 8,
           fontSize: 10,
           fontWeight: 700,
-          textAlign: 'center',
           cursor: 'pointer',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: 5,
         }}>
-          Sair
+          ↩ Sair
         </div>
       </div>
     </div>
@@ -781,7 +796,7 @@ function FeaturePunchSection() {
                         Confirmar Registro
                       </h4>
                       <p style={{ fontSize: 10, color: '#64748B', marginBottom: 12 }}>
-                        Você está prestes a registrar:
+                        Você está prestes a registrar um ponto de:
                       </p>
                       <div style={{
                         border: '2px solid #0088CE', color: '#0088CE',
@@ -825,7 +840,8 @@ function FeatureMirrorSection() {
   ]
   const days = [
     { day: 17, wd: 'DOM.', type: 'today' },
-    { day: 15, wd: 'SEX.', type: 'normal',     chips: ['↪ 08:00', '↩ 12:01', '↪ 13:00', '↩ 17:00'] },
+    { day: 16, wd: 'SÁB.', type: 'folga' },
+    { day: 15, wd: 'SEX.', type: 'normal',     chips: ['↪ 07:42', '↩ 17:00'] },
     { day: 14, wd: 'QUI.', type: 'incomplete', chips: ['↪ 11:12'] },
     { day: 13, wd: 'QUA.', type: 'absent' },
     { day: 12, wd: 'TER.', type: 'incomplete', chips: ['↪ 08:22', '↩ 08:23', '↪ 11:20'] },
@@ -885,20 +901,7 @@ function FeatureMirrorSection() {
                   <TopBar title="Início" />
                   <div style={{ flex: 1, padding: '10px 12px', overflowY: 'auto' }}>
                     <p style={{ fontSize: 12, fontWeight: 800, color: '#0F172A', marginBottom: 1 }}>Meu Ponto</p>
-                    <p style={{ fontSize: 9, color: '#64748B', marginBottom: 9 }}>Olá, Vitor Funcionário</p>
-
-                    {/* Reference card */}
-                    <div style={{
-                      background: '#0088CE', color: '#fff', borderRadius: 8,
-                      padding: '8px 12px', display: 'flex', justifyContent: 'space-between',
-                      alignItems: 'center', marginBottom: 10,
-                    }}>
-                      <div>
-                        <div style={{ fontSize: 8, fontWeight: 700, letterSpacing: 1, opacity: 0.85 }}>REFERÊNCIA</div>
-                        <div style={{ fontSize: 12, fontWeight: 800 }}>maio/2026</div>
-                      </div>
-                      <span style={{ fontSize: 18 }}>📅</span>
-                    </div>
+                    <p style={{ fontSize: 9, color: '#64748B', marginBottom: 9 }}>Olá, Vitor Funcionário · maio/2026</p>
 
                     {/* Days */}
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
@@ -927,7 +930,7 @@ function FeatureMirrorSection() {
                             display: 'flex', alignItems: 'center',
                             flexWrap: 'wrap', gap: 3,
                           }}>
-                            {d.type === 'today' && (
+                            {(d.type === 'today' || d.type === 'folga') && (
                               <span style={{ fontSize: 9, color: '#64748B', fontStyle: 'italic' }}>Folga</span>
                             )}
                             {d.type === 'absent' && (
