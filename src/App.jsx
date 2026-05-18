@@ -4,7 +4,7 @@ import Lottie from 'lottie-react'
 const WA_LINK =
   'https://wa.me/5562999148580?text=Ol%C3%A1!%20Tenho%20interesse%20em%20conhecer%20o%20Evolua%20Ponto.%20Pode%20me%20ajudar%3F'
 
-const SYSTEM_LINK = '#' // TODO: substituir pelo link do sistema
+const SYSTEM_LINK = 'https://app.novacontabilidadedigital.com/login' // TODO: substituir pelo link do sistema
 
 // ─── Global styles injected via <style> ─────────────────────────────────────
 function GlobalStyles() {
@@ -208,7 +208,7 @@ function ClockIcon({ size = 24, color = '#0088CE' }) {
 function LoginLottie() {
   const [data, setData] = useState(null)
   useEffect(() => {
-    fetch('/LoginAnimation.json').then(r => r.json()).then(setData).catch(() => {})
+    fetch('/LoginAnimation.json').then(r => r.json()).then(setData).catch(() => { })
   }, [])
   if (!data) return null
   return <Lottie animationData={data} loop autoplay style={{ width: '100%', height: 'auto' }} />
@@ -285,17 +285,17 @@ function BrowserFrame({ children, url = 'app.evoluaponto.com.br', height = 380 }
 // ─── Reusable: SideBar ───────────────────────────────────────────────────────
 function SideBar({ activeItem = 'Início', showGestao = false }) {
   const mainItems = [
-    { label: 'Início',           icon: '⌂' },
-    { label: 'Bater ponto',      icon: '⏱' },
+    { label: 'Início', icon: '⌂' },
+    { label: 'Bater ponto', icon: '⏱' },
     { label: 'Solicitar Ajuste', icon: '✎' },
-    { label: 'Comprovantes',     icon: '☰' },
+    { label: 'Comprovantes', icon: '☰' },
   ]
   const gestaoItems = [
     { label: 'Estabelecimentos', badge: null, icon: '⊞' },
-    { label: 'Funcionários',     badge: null, icon: '⊕' },
-    { label: 'Escalas',          badge: null, icon: '⊟' },
-    { label: 'Solicitações',     badge: '1',  icon: '◆' },
-    { label: 'Relatórios',       badge: null, icon: '≡' },
+    { label: 'Funcionários', badge: null, icon: '⊕' },
+    { label: 'Escalas', badge: null, icon: '⊟' },
+    { label: 'Solicitações', badge: '1', icon: '◆' },
+    { label: 'Relatórios', badge: null, icon: '≡' },
   ]
   const w = showGestao ? 190 : 178
 
@@ -883,11 +883,11 @@ function FeatureMirrorSection() {
   const days = [
     { day: 17, wd: 'DOM.', type: 'today' },
     { day: 16, wd: 'SÁB.', type: 'folga' },
-    { day: 15, wd: 'SEX.', type: 'normal',     chips: ['↪ 07:42', '↩ 17:00'] },
+    { day: 15, wd: 'SEX.', type: 'normal', chips: ['↪ 07:42', '↩ 17:00'] },
     { day: 14, wd: 'QUI.', type: 'incomplete', chips: ['↪ 11:12'] },
     { day: 13, wd: 'QUA.', type: 'absent' },
     { day: 12, wd: 'TER.', type: 'incomplete', chips: ['↪ 08:22', '↩ 08:23', '↪ 11:20'] },
-    { day: 11, wd: 'SEG.', type: 'normal',     chips: ['↪ 16:37', '↩ 16:38'] },
+    { day: 11, wd: 'SEG.', type: 'normal', chips: ['↪ 16:37', '↩ 16:38'] },
   ]
 
   function dayBg(type) {
@@ -895,12 +895,12 @@ function FeatureMirrorSection() {
     return '#fff'
   }
   function dayBorder(type) {
-    if (type === 'today')  return '2px solid #0088CE'
+    if (type === 'today') return '2px solid #0088CE'
     if (type === 'absent') return '1px solid #EF4444'
     return '1px solid #E2E8F0'
   }
   function dayNumColor(type) {
-    if (type === 'today')  return '#0088CE'
+    if (type === 'today') return '#0088CE'
     if (type === 'absent') return '#EF4444'
     return '#0F172A'
   }
@@ -1019,8 +1019,8 @@ function FeatureManagementSection() {
     'Fila de aprovação de ajustes com justificativa',
   ]
   const establishments = [
-    { name: 'Filial Centro',       addr: 'Av. Goiás, 1000 - Centro',       city: 'Goiânia / GO' },
-    { name: 'Filial Setor Bueno',  addr: 'Rua 92, 500 - Setor Bueno',      city: 'Goiânia / GO' },
+    { name: 'Filial Centro', addr: 'Av. Goiás, 1000 - Centro', city: 'Goiânia / GO' },
+    { name: 'Filial Setor Bueno', addr: 'Rua 92, 500 - Setor Bueno', city: 'Goiânia / GO' },
   ]
 
   function Toggle() {
@@ -1129,10 +1129,10 @@ function FeatureManagementSection() {
 function ComplianceSection() {
   const [ref, visible] = useScrollReveal()
   const cards = [
-    { emoji: '📄', title: 'AFD — Arquivo de Fonte de Dados',    text: 'Gerado conforme Portaria 671 com assinatura CAdES e arquivo .p7s.' },
+    { emoji: '📄', title: 'AFD — Arquivo de Fonte de Dados', text: 'Gerado conforme Portaria 671 com assinatura CAdES e arquivo .p7s.' },
     { emoji: '⚖️', title: 'AEJ — Arquivo Eletrônico de Jornada', text: 'Exportação com cálculo de horas trabalhadas, extras e atrasos.' },
-    { emoji: '📊', title: 'Espelho de Ponto PDF e Excel',        text: 'Relatório individual ou em lote com assinatura digital, pronto para auditorias.' },
-    { emoji: '🔐', title: 'Hash SHA-256 em cada batida',         text: 'Todo registro gera hash criptográfico único — imutabilidade e rastreabilidade jurídica.' },
+    { emoji: '📊', title: 'Espelho de Ponto PDF e Excel', text: 'Relatório individual ou em lote com assinatura digital, pronto para auditorias.' },
+    { emoji: '🔐', title: 'Hash SHA-256 em cada batida', text: 'Todo registro gera hash criptográfico único — imutabilidade e rastreabilidade jurídica.' },
   ]
   return (
     <section className="sec" style={{ background: 'linear-gradient(135deg, #0088CE 0%, #004f7c 100%)' }}>
@@ -1170,8 +1170,8 @@ function ComplianceSection() {
 function HowItWorksSection() {
   const [ref, visible] = useScrollReveal()
   const steps = [
-    { num: '01', title: 'Cadastre sua empresa',           text: 'Configure estabelecimentos com raio de GPS, crie escalas e cadastre os funcionários com perfis de acesso.' },
-    { num: '02', title: 'Funcionários batem ponto',       text: 'Via navegador ou celular, o colaborador registra entrada e saída com confirmação de localização em tempo real.' },
+    { num: '01', title: 'Cadastre sua empresa', text: 'Configure estabelecimentos com raio de GPS, crie escalas e cadastre os funcionários com perfis de acesso.' },
+    { num: '02', title: 'Funcionários batem ponto', text: 'Via navegador ou celular, o colaborador registra entrada e saída com confirmação de localização em tempo real.' },
     { num: '03', title: 'Gestão e relatórios em um clique', text: 'Acompanhe o espelho, aprove ajustes e exporte relatórios fiscais para o MTE com assinatura digital.' },
   ]
   return (
