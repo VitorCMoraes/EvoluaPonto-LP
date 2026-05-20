@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import Lottie from 'lottie-react'
+import FAQSection from './FAQSection'
 
 const WA_LINK =
   'https://wa.me/5562999148580?text=Ol%C3%A1!%20Tenho%20interesse%20em%20conhecer%20o%20Evolua%20Ponto.%20Pode%20me%20ajudar%3F'
@@ -1280,6 +1281,7 @@ export default function App() {
       <FeatureManagementSection />
       <ComplianceSection />
       <HowItWorksSection />
+      <FAQSection />
       <FinalCTASection />
       <Footer />
     </>
