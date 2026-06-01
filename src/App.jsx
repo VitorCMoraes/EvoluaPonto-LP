@@ -5,7 +5,7 @@ import FAQSection from './FAQSection'
 const WA_LINK =
   'https://wa.me/5562999148580?text=Ol%C3%A1!%20Tenho%20interesse%20em%20conhecer%20o%20Evolua%20Ponto.%20Pode%20me%20ajudar%3F'
 
-const SYSTEM_LINK = 'https://app.novacontabilidadedigital.com/login' // TODO: substituir pelo link do sistema
+const SYSTEM_LINK = 'https://ponto.evoluasoft.com.br/login' // TODO: substituir pelo link do sistema
 
 // ─── Global styles injected via <style> ─────────────────────────────────────
 function GlobalStyles() {
