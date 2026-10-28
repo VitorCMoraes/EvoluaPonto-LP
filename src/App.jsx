@@ -1261,9 +1261,17 @@ function Footer() {
           Gestão de jornada inteligente para a sua empresa.
         </p>
       </div>
-      <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.28)' }}>
-        © {new Date().getFullYear()} Evolua Ponto. Todos os direitos reservados.
-      </p>
+      <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '8px 24px' }}>
+        <a
+          href="/politica-de-privacidade"
+          style={{ fontSize: 12, color: 'rgba(255,255,255,0.55)', textDecoration: 'underline' }}
+        >
+          Política de Privacidade
+        </a>
+        <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.28)' }}>
+          © {new Date().getFullYear()} Evolua Ponto. Todos os direitos reservados.
+        </p>
+      </div>
     </footer>
   )
 }
